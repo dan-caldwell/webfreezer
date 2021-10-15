@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Sites to freeze</h2>
+    <input id="sites-to-freeze" type="text">
+    <button id="save-sites">Save</button>
+    <div>
+        <h2>Update every</h2>
+        <select id="update-every">
+            <option id="day">Day</option>
+            <option id="week">Day</option>
+        </select>
+    </div>
+    <hr>
+    <div>
+        <button id="clear-cache">Clear Cache</button>
+    </div>
+    <br>
+    <div>
+        <button id="change-freeze-status"></button>
+        <div>Freezing is currently <span id="freeze-status"></span></div>
+    </div>
+    <script type="module" src="src/options/options.js"></script>
+</body>
+</html>

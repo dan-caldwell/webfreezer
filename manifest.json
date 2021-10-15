@@ -1,0 +1,32 @@
+{
+    "name": "Once-A-Day",
+    "description": "Once-A-Day",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": [
+        "tabs",
+        "cookies",
+        "webRequest",
+        "storage"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["src/content-scripts/replacer.js"]
+        }
+    ],
+    "background": {
+        "service_worker": "src/once-a-day-background.js",
+        "type": "module"
+    },
+    "options_page": "options.html",
+    "web_accessible_resources": [
+        {
+            "resources": ["src/utils/utils.js"],
+            "matches": ["<all_urls>"]
+        }
+    ]
+  }
