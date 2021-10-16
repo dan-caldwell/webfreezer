@@ -1,0 +1,3 @@
+[ ] Delete old items after a specific time (2 weeks maybe)
+[√] Cache specific URLs rather than entire hosts, store as array of objects
+[√] Get cache on DOMContentLoaded to replace the page quicker

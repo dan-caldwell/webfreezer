@@ -15,14 +15,15 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["src/content-scripts/replacer.js"]
+            "js": ["src/content-scripts/replacer.js"],
+            "run_at": "document_start"
         }
     ],
     "background": {
         "service_worker": "src/once-a-day-background.js",
         "type": "module"
     },
-    "options_page": "options.html",
+    "options_page": "src/options/options.html",
     "web_accessible_resources": [
         {
             "resources": ["src/utils/utils.js"],

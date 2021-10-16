@@ -1,9 +1,15 @@
 export const getObjectFromLocalStorage = async function (key) {
     return new Promise((resolve, reject) => {
         try {
-            chrome.storage.local.get(key, function (value) {
-                resolve(value[key]);
-            });
+            if (key === 'GET_EVERYTHING') {
+                chrome.storage.local.get(function (value) {
+                    resolve(value);
+                });
+            } else {
+                chrome.storage.local.get(key, function (value) {
+                    resolve(value[key]);
+                });
+            }
         } catch (ex) {
             reject(ex);
         }
