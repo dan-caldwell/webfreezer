@@ -30,26 +30,30 @@ const sendCacheInfo = () => {
 }
 
 window.addEventListener('DOMContentLoaded', async e => {
-    const utils = await import(utilsURL);
-    const freezingEnabled = await utils.getObjectFromLocalStorage(['freezeStatus']);
-    if (!freezingEnabled) return;
-    const sitesToFreeze = await utils.getObjectFromLocalStorage(['sitesToFreeze']);
-    if (!sitesToFreeze) return;
-    const formattedSitesToFreeze = sitesToFreeze.split(',');
-    const inFrozenSites = formattedSitesToFreeze.find(site => window.location.href === site.trim());
-    if (!inFrozenSites) return;
-    console.log('Freezing enabled on', location.href);
-    const siteFreezeInfo = await utils.getObjectFromLocalStorage([location.href]);
-    if (siteFreezeInfo && shouldReturnCached(new Date().toString(), siteFreezeInfo.date)) {
-        document.body.innerHTML = siteFreezeInfo.document;
-        console.log('Replaced body with cached value');
-    } else {
-        await timeout(2000);
-        sendCacheInfo();
-    }
-    window.webFreezer = {
-        enabled: true,
-        siteFreezeInfo
+    try {
+        const utils = await import(utilsURL);
+        const freezingEnabled = await utils.getObjectFromLocalStorage(['freezeStatus']);
+        if (!freezingEnabled) return;
+        const sitesToFreeze = await utils.getObjectFromLocalStorage(['sitesToFreeze']);
+        if (!sitesToFreeze) return;
+        const formattedSitesToFreeze = sitesToFreeze.split(',');
+        const inFrozenSites = formattedSitesToFreeze.find(site => window.location.href === site.trim());
+        if (!inFrozenSites) return;
+        console.log('Freezing enabled on', location.href);
+        const siteFreezeInfo = await utils.getObjectFromLocalStorage([location.href]);
+        if (siteFreezeInfo && shouldReturnCached(new Date().toString(), siteFreezeInfo.date)) {
+            document.body.innerHTML = siteFreezeInfo.document;
+            console.log('Replaced body with cached value');
+        } else {
+            await timeout(2000);
+            sendCacheInfo();
+        }
+        window.webFreezer = {
+            enabled: true,
+            siteFreezeInfo
+        }
+    } catch (err) {
+        console.log('web freezer could not import utils');
     }
 });
 
