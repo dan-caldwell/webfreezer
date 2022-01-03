@@ -10,13 +10,16 @@ const timeout = ms => {
 }
 
 const shouldReturnCached = (currentDate, oldDate) => {
-    const currentDateObj = new Date(currentDate);
-    const oldDateObj = new Date(oldDate);
-    return (
-        currentDateObj.getFullYear() === oldDateObj.getFullYear() &&
-        currentDateObj.getMonth() === oldDateObj.getMonth() &&
-        currentDateObj.getDate() === oldDateObj.getDate()
-    );
+    const currentDateObj = new Date(currentDate).getTime();
+    const oldDateObj = new Date(oldDate).getTime();
+    // Freeze every 3 hours
+    const hours = 1000 * 60 * 60 * 6;
+    return currentDateObj - oldDateObj < hours
+    // return (
+    //     currentDateObj.getFullYear() === oldDateObj.getFullYear() &&
+    //     currentDateObj.getMonth() === oldDateObj.getMonth() &&
+    //     currentDateObj.getDate() === oldDateObj.getDate()
+    // );
 }
 
 const sendCacheInfo = () => {
